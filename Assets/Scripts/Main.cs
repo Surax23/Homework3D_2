@@ -5,6 +5,8 @@ namespace Geekbrains
 {
 	public class Main : MonoBehaviour
 	{
+        public static System.Random random = new System.Random();
+
 		public FlashLightController FlashLightController { get; private set; }
 		public InputController InputController { get; private set; }
 		public PlayerController PlayerController { get; private set; }

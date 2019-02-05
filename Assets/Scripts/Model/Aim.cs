@@ -8,6 +8,9 @@ namespace Geekbrains
 		public event Action OnPointChange;
 
 		public float Hp = 100;
+        public float Shield = 20;
+
+        private System.Random rand = new System.Random();
 		private bool _isDead;
 		// дописать поглащение урона
 		public void SetDamage(InfoCollision info)
@@ -15,7 +18,7 @@ namespace Geekbrains
 			if (_isDead) return;
 			if (Hp > 0)
 			{
-				Hp -= info.Damage;
+				Hp -= info.Damage * Shield * (float)rand.NextDouble();
 			}
 
 			if (Hp <= 0)
