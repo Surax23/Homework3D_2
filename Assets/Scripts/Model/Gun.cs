@@ -1,16 +1,9 @@
-﻿using System;
+﻿
 namespace Geekbrains
 {
-    public sealed class Gun : Weapon
-    {
-        public override void Start()
-        {
-            _maxCountAmmunition = 100000;
-            base.Start();
-        }
-
-
-        public override void Fire()
+	public sealed class Gun : Weapon
+	{
+		public override void Fire()
 		{
 			if (!_isReady) return;
 			if (Clip.CountAmmunition <= 0) return;

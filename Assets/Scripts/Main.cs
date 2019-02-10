@@ -11,17 +11,12 @@ namespace Geekbrains
 		public InputController InputController { get; private set; }
 		public PlayerController PlayerController { get; private set; }
 		public WeaponController WeaponController { get; private set; }
-		public SelectionController SelectionController { get; private set; }
-		public BotController BotController { get; private set; }
 		public ObjectManager ObjectManager { get; private set; }
-		private BaseController[] Controllers;
-
 		public Transform Player { get; private set; }
 		public Transform MainCamera { get; private set; }
+		private BaseController[] Controllers;
 
 		public static Main Instance { get; private set; }
-		public Bot RefBotPrefab;
-		public int CountBot;
 
 		private void Awake()
 		{
@@ -31,32 +26,20 @@ namespace Geekbrains
 			Player = GameObject.FindGameObjectWithTag("Player").transform;
 
 			ObjectManager = new ObjectManager();
+			ObjectManager.Start();
 			
-			PlayerController = new PlayerController(new UnitMotor(Player));
-			
+			PlayerController = new PlayerController(new UnitMotor(
+				GameObject.FindObjectOfType<CharacterController>().transform));
+			PlayerController.On();
 			FlashLightController = new FlashLightController();
 			InputController = new InputController();
-			SelectionController = new SelectionController();
+			InputController.On();
 			WeaponController = new WeaponController();
-
-			BotController = new BotController();
-
-			Controllers = new BaseController[6];
+			Controllers = new BaseController[4];
 			Controllers[0] = FlashLightController;
 			Controllers[1] = InputController;
 			Controllers[2] = PlayerController;
 			Controllers[3] = WeaponController;
-			Controllers[4] = SelectionController;
-			Controllers[5] = BotController;
-		}
-
-		private void Start()
-		{
-			ObjectManager.Start();
-			InputController.On();
-			PlayerController.On();
-			BotController.On();
-			BotController.Init(CountBot);
 		}
 
 		private void Update()

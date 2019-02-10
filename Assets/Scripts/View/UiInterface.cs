@@ -27,17 +27,5 @@ namespace Geekbrains
 				return _weaponUiText;
 			}
 		}
-
-		private SelectionObjMessageUi _selectionObjMessageUi;
-
-		public SelectionObjMessageUi SelectionObjMessageUi
-		{
-			get
-			{
-				if (!_selectionObjMessageUi)
-					_selectionObjMessageUi = MonoBehaviour.FindObjectOfType<SelectionObjMessageUi>();
-				return _selectionObjMessageUi;
-			}
-		}
 	}
 }
