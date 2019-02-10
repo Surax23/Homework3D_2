@@ -16,7 +16,16 @@ namespace Geekbrains
 					Quaternion.identity);
 
 				tempBot.Agent.avoidancePriority = index;
-				tempBot.Target = Main.Instance.Player; // разных противников
+                int rand = 0;
+                if (GetBotList.Count > 1)
+                {
+                    rand = Main.random.Next(0, GetBotList.Count - 1);
+                    tempBot.Target = GetBotList[rand].transform; // разных противников
+                }
+                else
+                {
+                    tempBot.Target = Main.Instance.Player;
+                }
 				AddBotToList(tempBot);
 			}
 		}

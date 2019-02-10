@@ -106,11 +106,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
-  Ammunition: {fileID: 8901952978020707258, guid: ca1df36b30204724cb8eb4f5b1163491,
+  Ammunition: {fileID: 8832838538666019719, guid: ca1df36b30204724cb8eb4f5b1163491,
     type: 3}
   ClipSize: 5
   _barrel: {fileID: 166820647496660266}
-  _force: 999
+  _force: 9999
   _rechergeTime: 0.2
 --- !u!1 &4150504979850117026
 GameObject:
@@ -277,7 +277,7 @@ MonoBehaviour:
   Hp: 100
   Vision:
     ActiveDis: 10
-    ActiveAng: 35
+    ActiveAng: 70
   Weapon: {fileID: 2443827103268533189}
 --- !u!114 &4747817453825760653
 MonoBehaviour:

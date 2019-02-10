@@ -1,6 +1,6 @@
 ﻿namespace Geekbrains
 {
-	public sealed class Bullet : Ammunition
+	public sealed class Bull_7_42 : Ammunition
 	{
 		private void OnCollisionEnter(UnityEngine.Collision collision)
 		{

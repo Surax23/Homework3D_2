@@ -15,7 +15,8 @@ namespace Geekbrains
 		private StateBot _stateBot;
 		private Vector3 _point;
 
-		protected override void Awake()
+
+        protected override void Awake()
 		{
 			base.Awake();
 			Agent = GetComponent<NavMeshAgent>();
@@ -33,7 +34,8 @@ namespace Geekbrains
 
 			if (_stateBot != StateBot.Detected)
 			{
-				if (!Agent.hasPath)
+                
+                if (!Agent.hasPath)
 				{
 					if (_stateBot != StateBot.Inspection)
 					{
@@ -43,7 +45,8 @@ namespace Geekbrains
 							_point = Patrol.GenericPoint(transform);
 							Agent.SetDestination(_point);
 							Agent.stoppingDistance = 0;
-						}
+                            
+                        }
 						else
 						{
 							if (Vector3.Distance(_point, transform.position) <= 1)
@@ -62,17 +65,28 @@ namespace Geekbrains
 			}
 			else
 			{
-				Agent.SetDestination(Target.position);
-				Agent.stoppingDistance = 2;
-				if (Vision.VisionM(transform, Target))
-				{
-					// остановиться 
-					Weapon.Fire();
-				}
-
-				// Потеря персонажа
-			}
-		}
+                Debug.Log("Vision: " + Vision.VisionM(transform, Target));
+                if (Vision.VisionM(transform, Target))
+                {
+                    Agent.stoppingDistance = 6;
+                    Agent.SetDestination(Target.position);
+                    this.transform.LookAt(Target.transform);
+                    // Остановиться
+                    Weapon.Fire();
+                    if (Vector3.Distance(this.transform.position, Target.position) < 6)
+                        Agent.ResetPath();
+                }
+                else
+                {
+                    if (Vector3.Distance(Target.position, transform.position) > 15)
+                    {
+                        Debug.Log("Бля");
+                        _stateBot = StateBot.Inspection;
+                        Invoke(nameof(ReadyPatrol), _waitTime);
+                    }
+                }
+            }
+        }
 
 		public void SetDamage(InfoCollision info)
 		{
@@ -104,7 +118,8 @@ namespace Geekbrains
 		private void ReadyPatrol()
 		{
 			_stateBot = StateBot.Non;
-		}
+            Agent.ResetPath();
+        }
 
 		public void MovePoint(Vector3 point)
 		{

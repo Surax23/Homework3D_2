@@ -5,7 +5,7 @@ namespace Geekbrains
 {
 	public abstract class Weapon : BaseObjectScene
 	{
-		private int _maxCountAmmunition = 20;
+		protected int _maxCountAmmunition = 20;
 		public Ammunition Ammunition;
 		public Clip Clip;
 		public int ClipSize = 5;
@@ -20,7 +20,7 @@ namespace Geekbrains
 		protected bool _isReady = true;
 		//protected Timer _timer = new Timer();
 
-		private void Start()
+		public virtual void Start()
 		{
 			for (var i = 0; i <= ClipSize; i++)
 			{
