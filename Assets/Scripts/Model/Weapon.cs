@@ -6,9 +6,9 @@ namespace Geekbrains
 	public abstract class Weapon : BaseObjectScene
 	{
 		private int _maxCountAmmunition = 20;
-		private int _countClip = 5;
 		public Ammunition Ammunition;
 		public Clip Clip;
+		public int ClipSize = 5;
 
 		protected AmmunitionType[] _ammunitionType = new AmmunitionType[]{AmmunitionType.Bullet};
 
@@ -22,7 +22,7 @@ namespace Geekbrains
 
 		private void Start()
 		{
-			for (var i = 0; i <= _countClip; i++)
+			for (var i = 0; i <= ClipSize; i++)
 			{
 				AddClip(new Clip { CountAmmunition = _maxCountAmmunition });
 			}
