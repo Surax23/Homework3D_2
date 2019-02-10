@@ -1,12 +1,12 @@
 ﻿namespace Geekbrains
 {
-	public sealed class Bullet : Ammunition
+	public sealed class Bull_7_42 : Ammunition
 	{
 		private void OnCollisionEnter(UnityEngine.Collision collision)
 		{
 			var tempObj = collision.gameObject.GetComponent<ISetDamage>();
-			// дописать доп урон
-			tempObj?.SetDamage(new InfoCollision(_curDamage, Rigidbody.velocity));
+            float damage = _curDamage + Main.random.Next(-5, 15);
+            tempObj?.SetDamage(new InfoCollision(damage, Rigidbody.velocity));
 			Destroy(gameObject);
 		}
 	}
