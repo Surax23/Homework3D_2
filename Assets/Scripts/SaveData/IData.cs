@@ -1,8 +1,10 @@
-﻿namespace Geekbrains
+﻿using System.Collections.Generic;
+
+namespace Geekbrains
 {
 	public interface IData<T>
 	{
-		void Save(T data,  string path = null);
-		T Load(string path = null);
+		void Save(List<T> data,  string path = null);
+        List<T> Load(string path = null);
 	}
 }

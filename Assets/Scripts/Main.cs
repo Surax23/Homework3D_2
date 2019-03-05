@@ -84,5 +84,10 @@ namespace Geekbrains
 			StopCoroutine(routine);
 		}
 
+        public T[] GetObjects<T>(T name) where T : Object
+        {
+            return FindObjectsOfType(typeof(T)) as T[];
+        }
+
 	}
 }

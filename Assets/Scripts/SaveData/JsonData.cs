@@ -1,11 +1,12 @@
 ﻿using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Geekbrains
 {
 	public class JsonData<T> : IData<T>
 	{
-		public void Save(T data, string path = null)
+		public void Save(List<T> data, string path = null)
 		{
 			//if(!typeof(T).IsSerializable) return;
 			
@@ -13,10 +14,10 @@ namespace Geekbrains
 			File.WriteAllText(path, str);
 		}
 
-		public T Load(string path = null)
+		public List<T> Load(string path = null)
 		{
 			var str = File.ReadAllText(path);
-			return JsonUtility.FromJson<T>(str);
+			return JsonUtility.FromJson<List<T>>(str);
 		}
 	}
 }
