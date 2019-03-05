@@ -1,45 +1,64 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Geekbrains
 {
 	public class Main : MonoBehaviour
 	{
-        public static System.Random random = new System.Random();
-
 		public FlashLightController FlashLightController { get; private set; }
 		public InputController InputController { get; private set; }
 		public PlayerController PlayerController { get; private set; }
 		public WeaponController WeaponController { get; private set; }
+		public SelectionController SelectionController { get; private set; }
+		public BotController BotController { get; private set; }
 		public ObjectManager ObjectManager { get; private set; }
-		public Transform Player { get; private set; }
-		public Transform MainCamera { get; private set; }
+		public PhotoController PhotoController { get; private set; }
+		public SaveDataRepository SaveDataRepository { get; private set; }
 		private BaseController[] Controllers;
 
+		public Transform Player { get; private set; }
+		public Camera MainCamera { get; private set; }
+
 		public static Main Instance { get; private set; }
+		public int CountBot;
 
 		private void Awake()
 		{
 			Instance = this;
 
-			MainCamera = Camera.main.transform;
+			MainCamera = Camera.main;
 			Player = GameObject.FindGameObjectWithTag("Player").transform;
 
+			SaveDataRepository = new SaveDataRepository();
+			PhotoController = new PhotoController();
 			ObjectManager = new ObjectManager();
-			ObjectManager.Start();
 			
-			PlayerController = new PlayerController(new UnitMotor(
-				GameObject.FindObjectOfType<CharacterController>().transform));
-			PlayerController.On();
+			PlayerController = new PlayerController(new UnitMotor(Player));
+			
 			FlashLightController = new FlashLightController();
 			InputController = new InputController();
-			InputController.On();
+			SelectionController = new SelectionController();
 			WeaponController = new WeaponController();
-			Controllers = new BaseController[4];
+
+			BotController = new BotController();
+
+			Controllers = new BaseController[6];
 			Controllers[0] = FlashLightController;
 			Controllers[1] = InputController;
 			Controllers[2] = PlayerController;
 			Controllers[3] = WeaponController;
+			Controllers[4] = SelectionController;
+			Controllers[5] = BotController;
+		}
+
+		private void Start()
+		{
+			ObjectManager.Start();
+			InputController.On();
+			PlayerController.On();
+			BotController.On();
+			BotController.Init(CountBot);
 		}
 
 		private void Update()
@@ -54,5 +73,16 @@ namespace Geekbrains
 		{
 			GUI.Label(new Rect(0, 0, 100, 100), $"{1 / Time.deltaTime:0.0}");
 		}
+
+		public void DoStartCoroutine(IEnumerator routine)
+		{
+			StartCoroutine(routine);
+		}
+
+		public void DoStopCoroutine(IEnumerator routine)
+		{
+			StopCoroutine(routine);
+		}
+
 	}
 }

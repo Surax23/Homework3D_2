@@ -9,7 +9,7 @@ namespace Geekbrains
 		protected float _curDamage;
 		protected float _lossOfDamageAtTime = 0.2f;
 
-		public AmmunitionType Type { get; } = AmmunitionType.Bullet;
+		public AmmunitionType Type;
 
 		protected override void Awake()
 		{

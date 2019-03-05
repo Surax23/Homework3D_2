@@ -15,6 +15,11 @@ namespace Geekbrains
 				_weapon.Fire();
 				UiInterface.WeaponUiText.ShowData(_weapon.Clip.CountAmmunition, _weapon.CountClip);
 			}
+
+			if(Physics.Raycast(Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2)), out var hit))
+			{
+
+			}
 		}
 
 		public override void On(BaseObjectScene weapon)

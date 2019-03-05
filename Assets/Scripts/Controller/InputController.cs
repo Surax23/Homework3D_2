@@ -8,7 +8,11 @@ namespace Geekbrains
 		private KeyCode _activeFlashLight = KeyCode.F;
 		private KeyCode _cancel = KeyCode.Escape;
 		private KeyCode _reloadClip = KeyCode.R;
-        private int _selectedWeapon = 0;
+		private KeyCode _savePlayer = KeyCode.Q;
+		private KeyCode _loadPlayer = KeyCode.E;
+		private KeyCode _screenshot = KeyCode.Z;
+
+		private int _indexWeapons;
 
 		public InputController()
 		{
@@ -22,37 +26,37 @@ namespace Geekbrains
 			{
 				Main.Instance.FlashLightController.Switch();
 			}
-			// реализовать выбор оружия по колесику мыши
+			if (Input.GetAxis("Mouse ScrollWheel") > 0)
+			{
+				if (_indexWeapons < Main.Instance.ObjectManager.Weapons.Length - 1)
+				{
+					_indexWeapons++;
+				}
+				else
+				{
+					_indexWeapons = -1;
+				}
+				SelectWeapon(_indexWeapons);
+			}
+			else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+			{
+				if (_indexWeapons <= 0)
+				{
+					_indexWeapons = Main.Instance.ObjectManager.Weapons.Length;
+				}
+				else
+				{
+					_indexWeapons--;
+				}
+				SelectWeapon(_indexWeapons);
+			}
 
 			if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
-                SelectWeapon(0);
+				SelectWeapon(0);
 			}
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                SelectWeapon(1);
-            }
-
-            var d = Input.GetAxis("Mouse ScrollWheel");
-            if (d > 0f)
-            {
-                if (_selectedWeapon > 0)
-                    _selectedWeapon--;
-                else
-                    _selectedWeapon = 0;
-                SelectWeapon(_selectedWeapon);
-            }
-            else if (d < 0f)
-            {
-                if (_selectedWeapon < 1)
-                    _selectedWeapon++;
-                else
-                    _selectedWeapon = 1;
-                SelectWeapon(_selectedWeapon);
-            }
-
-            if (Input.GetKeyDown(_cancel))
+			if (Input.GetKeyDown(_cancel))
 			{
 				Main.Instance.WeaponController.Off();
 				Main.Instance.FlashLightController.Off();
@@ -62,12 +66,27 @@ namespace Geekbrains
 			{
 				Main.Instance.WeaponController.ReloadClip();
 			}
+
+			if (Input.GetKeyDown(_savePlayer))
+			{
+				Main.Instance.SaveDataRepository.Save();
+			}
+
+			if (Input.GetKeyDown(_loadPlayer))
+			{
+				Main.Instance.SaveDataRepository.Load();
+			}
+
+			if (Input.GetKeyDown(_screenshot))
+			{
+				Main.Instance.PhotoController.SecondMethod();
+			}
 		}
 
 		private void SelectWeapon(int i)
 		{
-            _selectedWeapon = i;
-            Main.Instance.WeaponController.Off();
+			Main.Instance.WeaponController.Off();
+			if (i < 0 || i >= Main.Instance.ObjectManager.Weapons.Length) return;
 			var tempWeapon = Main.Instance.ObjectManager.Weapons[i];
 			if (tempWeapon != null) Main.Instance.WeaponController.On(tempWeapon);
 		}
