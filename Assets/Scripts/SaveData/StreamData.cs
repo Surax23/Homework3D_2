@@ -1,33 +1,33 @@
-﻿//using System.IO;
+﻿using System.IO;
 
-//namespace Geekbrains
-//{
-//	public class StreamData : IData<SerializableGameObject>
-//	{
-//		public void Save(SerializableGameObject data, string path = null)
-//		{
-//			if (path == null) return;
-//			using (var sw = new StreamWriter(path))
-//			{
-//				sw.WriteLine(data.Name);
-//				sw.WriteLine(data.IsEnable);
-//			}
-//		}
+namespace Geekbrains
+{
+	public class StreamData : IData<SerializableGameObject>
+	{
+		public void Save(SerializableGameObject data, string path = null)
+		{
+			if (path == null) return;
+			using (var sw = new StreamWriter(path))
+			{
+				sw.WriteLine(data.Name);
+				sw.WriteLine(data.IsEnable);
+			}
+		}
 
-//		public SerializableGameObject Load(string path = null)
-//		{
-//			var result = new SerializableGameObject();
+		public SerializableGameObject Load(string path = null)
+		{
+			var result = new SerializableGameObject();
 
-//			using (var sr = new StreamReader(path))
-//			{
-//				while (!sr.EndOfStream)
-//				{
-//					result.Name = sr.ReadLine();
-//					result.IsEnable = sr.ReadLine().TryBool();
-//				}
-//			}
+			using (var sr = new StreamReader(path))
+			{
+				while (!sr.EndOfStream)
+				{
+					result.Name = sr.ReadLine();
+					result.IsEnable = sr.ReadLine().TryBool();
+				}
+			}
 
-//			return result;
-//		}
-//	}
-//}
+			return result;
+		}
+	}
+}

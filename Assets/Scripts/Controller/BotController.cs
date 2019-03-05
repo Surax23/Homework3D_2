@@ -5,7 +5,7 @@ namespace Geekbrains
 {
 	public class BotController : BaseController
 	{
-		public List<Bot> GetBotList { get; set; } = new List<Bot>();
+		public List<Bot> GetBotList { get; } = new List<Bot>();
 
 		public void Init(int countBot)
 		{

@@ -6,7 +6,6 @@ namespace Geekbrains
 	public class AimUiText : MonoBehaviour
 	{
 		private Aim[] _aims;
-
 		private Text _text;
 		private int _countPoint;
 		private void Awake()
